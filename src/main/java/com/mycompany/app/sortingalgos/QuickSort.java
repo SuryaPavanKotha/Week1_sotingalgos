@@ -1,63 +1,81 @@
 package com.mycompany.app.sortingalgos;
 
-class QuickSort
+import java.util.Scanner;
+
+public class QuickSort
 {
-   
-    int partition(int arr[], int low, int high)
+    /* This will take last element as pivot,
+       places the pivot element at its correct
+       position in sorted array, and places all
+       smaller  to left of pivot and all greater elements to right
+       of pivot */
+    int partition(int array[], int low, int high)
     {
-        int pivot = arr[high]; 
-        int i = (low-1); // index of smaller element
+        int pivot = array[high]; 
+        int i = (low-1); // this is index of smaller element
         for (int j=low; j<high; j++)
         {
-            if (arr[j] <= pivot)
+            
+            if (array[j] <= pivot)
             {
                 i++;
  
-            
-                int temp = arr[i];
-                arr[i] = arr[j];
-                arr[j] = temp;
+                // this will swap array[i] and array[j]
+                int temp = array[i];
+                array[i] = array[j];
+                array[j] = temp;
             }
         }
  
-     
-        int temp = arr[i+1];
-        arr[i+1] = arr[high];
-        arr[high] = temp;
+        // this will swap array[i+1] and array[high] (or pivot)
+        int temp = array[i+1];
+        array[i+1] = array[high];
+        array[high] = temp;
  
         return i+1;
     }
  
  
-    void sort(int arr[], int low, int high)
+    
+     
+    void sort(int array[], int low, int high)
     {
         if (low < high)
         {
-            
-            int pi = partition(arr, low, high);
+            /* Here pi is partitioning index, arr[pi] is 
+              now at right place */
+            int pi = partition(array, low, high);
  
-            sort(arr, low, pi-1);
-            sort(arr, pi+1, high);
+            //this sorts the arrays
+            sort(array, low, pi-1);
+            sort(array, pi+1, high);
         }
     }
  
-    static void printArray(int arr[])
-    {
-        int n = arr.length;
-        for (int i=0; i<n; ++i)
-            System.out.print(arr[i]+" ");
-        System.out.println();
-    }
+    //prints the elements in the array
+    void display(int array[])
+  	{
+  		System.out.println("The sorted array is:");
+  		for(int element:array)
+  		{
+  			System.out.print(element+" ");
+  		}
+  	}
  
+    
     public static void main(String args[])
     {
-        int arr[] = {10, 7, 8, 9, 1, 5};
-        int n = arr.length;
- 
-        QuickSort ob = new QuickSort();
-        ob.sort(arr, 0, n-1);
- 
-        System.out.println("sorted array");
-        printArray(arr);
+    	Scanner scan=new Scanner(System.in);
+		System.out.println("Enter the number of elements in the array:");
+		int no_of_elements=scan.nextInt();
+		int array[]=new int[no_of_elements];
+		System.out.println("Enter the elements in the array:");
+		for(int i=0;i<no_of_elements;i++)//here i is index
+		{
+			array[i]=scan.nextInt();
+		}
+		QuickSort object=new QuickSort();
+		object.sort(array,0,no_of_elements-1);
+		object.display(array);
     }
 }
